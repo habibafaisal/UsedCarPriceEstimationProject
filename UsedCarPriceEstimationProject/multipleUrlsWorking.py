@@ -12,7 +12,7 @@ all_data = []
 
 # loop through each URL and page, and scrape the data
 for url in urls:
-    for page in range(1, 3):
+    for page in range(1, 370):
         full_url = url + str(page)
         response = requests.get(full_url)
         soup = BeautifulSoup(response.content, 'html.parser')
@@ -52,18 +52,20 @@ for url in urls:
             car_name = ul.find_previous("h3").get_text(strip=True)
             car_name = car_name.split("for Sale")[0].strip()
             car_info = [li.get_text(strip=True) for li in ul.select("li")]
+            print([car_name, *car_info, pricesList[i],citiesList[i]])
             all_data.append([car_name, *car_info, pricesList[i],citiesList[i]])
             # print(all_data)
 
         print(page)
+        # print(all_data)
 
 # create a pandas dataframe and save the data to a CSV file
 
+# print(all_data)
 
 df = pd.DataFrame(
-    all_data, columns=["Car Name", "Year", "KM", "Type", "CC", "Transmission", "Price", "Cities"]
+    all_data, columns=["Car Name", "Year", "KM", "Type", "CC", "Transmission", "Price", "Cities","hjdcbhdb"]
 )
-print(all_data)
 
 df.to_csv("finalData.csv", mode="a", header=True, index=False)
 print('Scraping completed and data saved to finalData.csv.')
