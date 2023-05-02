@@ -12,7 +12,7 @@ all_data = []
 
 # loop through each URL and page, and scrape the data
 for url in urls:
-    for page in range(1, 370):
+    for page in range(1, 5):
         full_url = url + str(page)
         response = requests.get(full_url)
         soup = BeautifulSoup(response.content, 'html.parser')
